@@ -4,6 +4,9 @@
         "paths": {
             "@/components/*": [
                 "components/*"
+            ],
+            "@/mocks/*": [
+                "__mocks__/*"
             ]
         }
     }

@@ -1,65 +1,84 @@
+import commerce from "../lib/commerce";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import { useState } from "react";
 
-export default function Home() {
+export async function getStaticProps(context) {
+  const { data: products } = await commerce.products.list();
+  const { data: categories } = await commerce.categories.list();
+
+  return {
+    props: { products, categories },
+    revalidate: 30,
+  };
+}
+
+export default function Home({ products, categories }) {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Online Store</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <input
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+          role="searchbox"
+          type="text"
+          title="Search"
+          placeholder="Search products"
+        />
 
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        {searchTerm.length > 0 ? (
+          <>
+            <h2 id="search-results-heading">Search results</h2>
+            <ul aria-labelledby="search-results-heading">
+              {products
+                .filter((product) =>
+                  product.name.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+                .map((product) => {
+                  return <li key={product.id}>{product.name}</li>;
+                })}
+            </ul>
+          </>
+        ) : (
+          <>
+            <ul aria-label="Categories">
+              {categories.map((category) => {
+                return (
+                  <li aria-label="category" key={category.id}>
+                    <h2 id={`category-${category.name}`}>{category.name}</h2>
+                    <ul aria-labelledby={`category-${category.name}`}>
+                      {products
+                        .filter((product) =>
+                          product.categories.find((c) => c.id === category.id)
+                        )
+                        .map((product) => {
+                          return <li key={product.id}>{product.name}</li>;
+                        })}
+                    </ul>
+                  </li>
+                );
+              })}
+            </ul>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+            <h2 id="all-products-heading">All Products</h2>
+            <ul aria-labelledby="all-products-heading">
+              {products.map((product) => {
+                return <li key={product.id}>{product.name}</li>;
+              })}
+            </ul>
+          </>
+        )}
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <footer className={styles.footer}>Made by Abhik B</footer>
     </div>
   );
 }

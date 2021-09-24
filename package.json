@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest --watch --detectOpenHandles"
   },
   "dependencies": {
     "@chec/commerce.js": "^2.8.0",

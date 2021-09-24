@@ -1,1 +1,1 @@
-process.env.NEXT_CHEC_PUBLIC_KEY = "foo";
+process.env.NEXT_PUBLIC_CHEC_PUBLIC_KEY = "foo";

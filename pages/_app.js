@@ -1,6 +1,7 @@
 import commerce from "../lib/commerce";
 import { useEffect, useState } from "react";
 import "../styles/globals.css";
+import Navbar from "@/components/Navbar/Navbar";
 
 function MyApp({ Component, pageProps }) {
   const [cart, setCart] = useState();
@@ -49,15 +50,18 @@ function MyApp({ Component, pageProps }) {
 
   //
   return (
-    <Component
-      {...pageProps}
-      cart={cart}
-      addToCart={addToCart}
-      emptyCart={emptyCart}
-      refreshCart={refreshCart}
-      removeItem={removeItem}
-      updateQuantity={updateQuantity}
-    />
+    <>
+      <Navbar cart={cart} />
+      <Component
+        {...pageProps}
+        cart={cart}
+        addToCart={addToCart}
+        emptyCart={emptyCart}
+        refreshCart={refreshCart}
+        removeItem={removeItem}
+        updateQuantity={updateQuantity}
+      />
+    </>
   );
 }
 

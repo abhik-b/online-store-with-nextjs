@@ -2,6 +2,7 @@ import commerce from "../lib/commerce";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
+import Product from "@/components/Product/Product";
 
 export async function getStaticProps(context) {
   const { data: products } = await commerce.products.list();
@@ -43,7 +44,17 @@ export default function Home({ products, categories, addToCart }) {
                   product.name.toLowerCase().includes(searchTerm.toLowerCase())
                 )
                 .map((product) => {
-                  return <li key={product.id}>{product.name}</li>;
+                  return (
+                    <li key={product.id}>
+                      {" "}
+                      <Product
+                        product={product}
+                        addToCart={() => {
+                          addToCart(product.id);
+                        }}
+                      />
+                    </li>
+                  );
                 })}
             </ul>
           </>
@@ -60,7 +71,17 @@ export default function Home({ products, categories, addToCart }) {
                           product.categories.find((c) => c.id === category.id)
                         )
                         .map((product) => {
-                          return <li key={product.id}>{product.name}</li>;
+                          return (
+                            <li key={product.id}>
+                              {" "}
+                              <Product
+                                product={product}
+                                addToCart={() => {
+                                  addToCart(product.id);
+                                }}
+                              />
+                            </li>
+                          );
                         })}
                     </ul>
                   </li>
@@ -72,13 +93,13 @@ export default function Home({ products, categories, addToCart }) {
             <ul aria-labelledby="all-products-heading">
               {products.map((product) => {
                 return (
-                  <li
-                    onClick={() => {
-                      addToCart(product.id);
-                    }}
-                    key={product.id}
-                  >
-                    {product.name}
+                  <li key={product.id}>
+                    <Product
+                      product={product}
+                      addToCart={() => {
+                        addToCart(product.id);
+                      }}
+                    />
                   </li>
                 );
               })}

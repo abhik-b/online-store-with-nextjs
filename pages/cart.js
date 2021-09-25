@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import styles from "../styles/Home.module.css";
 
 export default function CartDetail({ cart, updateQuantity, emptyCart }) {
   const [loading, setLoading] = useState();
@@ -12,7 +13,7 @@ export default function CartDetail({ cart, updateQuantity, emptyCart }) {
 
   if (!cart) return <span>Loadin ...</span>;
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>Online Store</title>
         <link rel="icon" href="/favicon.ico" />

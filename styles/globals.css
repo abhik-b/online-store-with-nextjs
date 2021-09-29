@@ -37,3 +37,30 @@ nav {
   background: red;
   content: "";
 }
+
+.form-elem {
+  width: 100%;
+  place-items: center;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  padding: 0.5em;
+}
+.form-elem label,
+.form-elem input {
+  padding: 0.2em;
+  margin: 0.2em 0.5em;
+  width: 100%;
+}
+@media screen and (max-width: 729px) {
+  .form-elem {
+    grid-template-columns: auto;
+    grid-template-rows: 50% 50%;
+    padding: 0em;
+    margin: 0.5em 0.2em;
+  }
+  .form-elem label,
+  .form-elem input {
+    margin: 0.5em 0.2em;
+    width: 100%;
+  }
+}

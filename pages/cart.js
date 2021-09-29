@@ -67,7 +67,7 @@ export default function CartDetail({ cart, updateQuantity, emptyCart }) {
 
             <div>
               <button onClick={emptyCart}>Empty Cart</button>
-              <button>
+              <button disabled={loading ? true : false}>
                 <Link href="/checkout">
                   <a>Checkout</a>
                 </Link>

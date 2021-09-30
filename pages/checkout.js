@@ -43,7 +43,15 @@ export default function Checkout({ cart, refreshCart }) {
 
   return (
     <div className={styles.container}>
-      {checkoutToken ? <>{steps[activeStep]}</> : "loading ..."}
+      {checkoutToken ? (
+        <>
+          <h3>Step {activeStep + 1} :</h3>
+
+          {steps[activeStep]}
+        </>
+      ) : (
+        "loading ..."
+      )}
     </div>
   );
 }

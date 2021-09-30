@@ -9,6 +9,9 @@ export default function Payment({ shippingData, checkoutToken, refreshCart }) {
   const [error, setError] = useState();
 
   const { handleSubmit, register } = useForm();
+
+  //
+
   const shippingcharges = checkoutToken.shipping_methods.find(
     (obj) => obj.id === shippingData["shipping-options"]
   );

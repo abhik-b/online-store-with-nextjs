@@ -18,7 +18,6 @@ export default function AddressForm({ checkoutToken, setShippingData }) {
 
   const submitData = (data) => {
     setShippingData(data);
-    console.log(data);
   };
   return (
     <form onSubmit={handleSubmit(submitData)}>

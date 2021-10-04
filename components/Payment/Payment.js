@@ -57,10 +57,9 @@ export default function Payment({ shippingData, checkoutToken, refreshCart }) {
       .then((res) => {
         setOrder(res);
         refreshCart();
-        setLoading(false);
       })
       .catch(({ data }) => {
-        setError(data.error.message);
+        setError(data?.error?.message);
         setLoading(false);
       });
   }
@@ -86,25 +85,25 @@ export default function Payment({ shippingData, checkoutToken, refreshCart }) {
             {shippingData.firstname} {shippingData.lastname}
           </h3>
 
-          <p>Address :{shippingData.address1}</p>
-          <p>Email :{shippingData.email}</p>
-          <p> City :{shippingData.city}</p>
-          <p> Postal Zip :{shippingData.zip}</p>
-          <p> Country Code :{shippingData.country}</p>
-          <p> Subdivision Code :{shippingData.subdivisions}</p>
+          <p>Address : {shippingData.address1}</p>
+          <p>Email : {shippingData.email}</p>
+          <p> City : {shippingData.city}</p>
+          <p> Postal Zip : {shippingData.zip}</p>
+          <p> Country Code : {shippingData.country}</p>
+          <p> Subdivision Code : {shippingData.subdivisions}</p>
           <h4>Items you are buying</h4>
           <ul>
             {checkoutToken.live.line_items.map((item) => {
               return (
-                <p key={item.product_name}>
+                <li key={item.product_name}>
                   {item.product_name} - {item.line_total.formatted_with_symbol}{" "}
                   (Quantity :{item.quantity} )
-                </p>
+                </li>
               );
             })}
           </ul>
           <p>
-            Total : {checkoutToken.live.total.formatted_with_symbol} +
+            Total : {checkoutToken.live.total.formatted_with_symbol} +{" "}
             {shippingcharges.price.formatted_with_symbol}(Shipping Charges)
           </p>
 

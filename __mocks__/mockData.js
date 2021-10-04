@@ -39,3 +39,47 @@ export const mockCart = {
   total_unique_items: 2,
   total_items: 5,
 };
+
+export const mock_checkout_token = {
+  id: "chkt_nwarr02343",
+  cart_id: "cart_0o3ND70JjY6g8w",
+  shipping_methods: [
+    {
+      id: "ship_NqKE50BV3wdgBL",
+      description: "Delivary",
+      price: {
+        raw: 0,
+        formatted: "0.00",
+        formatted_with_symbol: "₹0.00",
+        formatted_with_code: "0.00 INR",
+      },
+      countries: ["IN"],
+    },
+    {
+      id: "ship_1234563wdgBL",
+      description: "International",
+      price: {
+        raw: 10,
+        formatted: "10.00",
+        formatted_with_symbol: "₹10.00",
+        formatted_with_code: "10.00 INR",
+      },
+      countries: ["BD"],
+    },
+  ],
+  live: {
+    total: {
+      formatted_with_symbol: "₹3950",
+    },
+    line_items: [
+      {
+        id: "item_7RyWOwmK5nEa2V",
+        product_name: "Monitor",
+        permalink: "e1234",
+        price: { raw: 850, formatted_with_symbol: "₹850" },
+        line_total: { formatted_with_symbol: "₹1700" },
+        quantity: 2,
+      },
+    ],
+  },
+};

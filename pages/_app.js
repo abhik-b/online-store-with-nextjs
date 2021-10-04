@@ -8,6 +8,11 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(async () => {
     const response = await commerce.cart.retrieve();
+    fetch("https://api.chec.io/v1/carts")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
     setCart(response);
   }, []);
 

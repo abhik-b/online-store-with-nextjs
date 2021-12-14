@@ -25,9 +25,10 @@ beforeAll(() =>
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-describe("checkout", () => {
-  it("integration test", async () => {
+describe("Checkout Flow", () => {
+  it("Integration test", async () => {
     render(<Checkout cart={mockCart} refreshCart={jest.fn()} />);
+
     const firstname = await screen.findByRole("textbox", {
       name: /firstname/i,
     });
@@ -49,17 +50,18 @@ describe("checkout", () => {
     const subdivisions = await screen.findByRole("combobox", {
       name: /subdivisions/i,
     });
-    userEvent.selectOptions(subdivisions, "AN");
 
     await waitForElementToBeRemoved(() =>
       screen.getByText(/fetching shipping options/i)
     );
+
+    userEvent.selectOptions(subdivisions, "AN");
+
     await screen.findByRole("combobox", { name: /shipping-options/i });
 
     const nextBtn = screen.getByRole("button", { name: /Next/i });
 
     userEvent.click(nextBtn);
-
     await screen.findByText(/John Doe/i);
     screen.getByText(/Address : 123 Dream street, New Delhi/i);
     screen.getByText(/Email : abc@gmail.com/i);
@@ -70,7 +72,9 @@ describe("checkout", () => {
 
     expect(screen.getAllByRole("spinbutton").length).toBe(5);
 
-    screen.getByText(/Total/i);
+    expect(
+      screen.getByText("Total : ₹3950 + ₹0.00(Shipping Charges)")
+    ).toBeInTheDocument();
 
     expect(screen.getAllByRole("listitem").length).toBe(1);
 
